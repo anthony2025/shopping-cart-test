@@ -1,8 +1,8 @@
-package com.example
+package com.siriusxm.example
 
 import cats.effect.IOApp
 import cats.effect.IO
 
 object Main extends IOApp.Simple {
-  def run: IO[Unit] = ???
+  def run: IO[Unit] = IO(println("Hello World"))
 }

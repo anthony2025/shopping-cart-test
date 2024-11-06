@@ -1,5 +1,5 @@
-ThisBuild / organization := "com.example"
-ThisBuild / scalaVersion := "2.13.5"
+ThisBuild / organization := "com.siriusxm.example"
+ThisBuild / scalaVersion := "2.13.15"
 
 lazy val root = (project in file(".")).settings(
   name := "cats-effect-3-quick-start",
