@@ -6,7 +6,7 @@ import io.circe.generic.semiauto.deriveDecoder
 import org.http4s.EntityDecoder
 import org.http4s.circe.jsonOf
 
-final case class Product(name: String, price: Float)
+final case class Product(title: String, price: Double)
 
 object Product {
   implicit val productDecoder: Decoder[Product] = deriveDecoder[Product]

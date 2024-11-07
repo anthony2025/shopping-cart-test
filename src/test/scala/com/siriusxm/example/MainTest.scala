@@ -1,7 +1,7 @@
 import cats.effect.IO
 import munit.CatsEffectSuite
 
-class ExampleSuite extends CatsEffectSuite {
+class MainTest extends CatsEffectSuite {
   test("tests can return IO[Unit] with assertions expressed via a map") {
     IO(42).map(it => assertEquals(it, 42))
   }
