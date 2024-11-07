@@ -12,7 +12,7 @@ object Product {
   implicit val productDecoder: Decoder[Product] = deriveDecoder[Product]
   implicit val productEntityDecoder: EntityDecoder[IO, Product] = jsonOf[IO, Product]
 
-  val baseProductsUrl = "https://raw.githubusercontent.com/mattjanks16/shopping-cart-test-data/main/"
+  val baseProductsUrl = "https://raw.githubusercontent.com/mattjanks16/shopping-cart-test-data/main"
 
   val availableProducts = List(
     "cheerios",
@@ -21,4 +21,7 @@ object Product {
     "shreddies",
     "weetabix",
   )
+
+  def productUrl(product: String): String =
+    s"$baseProductsUrl/$product.json"
 }

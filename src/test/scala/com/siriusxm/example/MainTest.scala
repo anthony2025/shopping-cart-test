@@ -1,7 +1,14 @@
 import cats.effect.IO
 import munit.CatsEffectSuite
 
+import com.siriusxm.example._
+import com.siriusxm.example.Product._
+
 class MainTest extends CatsEffectSuite {
+  test("can create a http client") {
+
+  }
+
   test("tests can return IO[Unit] with assertions expressed via a map") {
     IO(42).map(it => assertEquals(it, 42))
   }
