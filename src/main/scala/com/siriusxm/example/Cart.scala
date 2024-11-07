@@ -3,11 +3,13 @@ package com.siriusxm.example
 import com.siriusxm.example.Utils.DoubleOps
 
 final case class Cart(products: List[Product]) {
-  def subtotal = products.map(_.price).sum
+  def addProduct(product: Product): Cart = Cart(products :+ product)
 
-  def tax = (subtotal * 0.125)
+  // AMBIGUETY: requirements unclear if rounding is to occur in everything or just the total
+  def subtotal: Double = products.map(_.price).sum.roundUp
 
-  // AMBIGUETY: requirements unclear if rounding is to occur in anything but the total
-  def total = (subtotal + tax).roundUp
+  def tax: Double = (subtotal * 0.125).roundUp
+
+  def total: Double = (subtotal + tax).roundUp
 }
 

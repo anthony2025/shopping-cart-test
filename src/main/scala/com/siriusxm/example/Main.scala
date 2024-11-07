@@ -1,5 +1,6 @@
 package com.siriusxm.example
 
+import cats.effect.Resource
 import cats.effect.{IO, IOApp}
 import org.http4s.ember.client.EmberClientBuilder
 import org.http4s.client.Client
@@ -12,18 +13,21 @@ object Main extends IOApp.Simple {
   private implicit val loggerFactory: LoggerFactory[IO] =
     Slf4jFactory.create[IO]
 
-  def pollProductPrice(product: String)(client: Client[IO]): IO[Double] =
-    client
-      .expect[Product](productUrl(product))
-      .map(_.price)
+  def getProduct(product: String): IO[Product] =
+    createHttpClient
+      .use { client =>
+        client
+          .expect[Product](productUrl(product))
+      }
 
-  def run: IO[Unit] =
+  def pollProductPrice(product: String): IO[Double] =
+    getProduct(product).map(_.price)
+
+  def createHttpClient: Resource[IO, Client[IO]] =
     EmberClientBuilder
       .default[IO]
       .build
-      .use(client => pollProductPrice("cheerios")(client))
-      .map(IO.println)
-      .void
+
+  def run: IO[Unit] = IO.println(availableProducts.map(productUrl(_)))
 }
 
-  //IO.println(availableProducts.map(productUrl(_)))

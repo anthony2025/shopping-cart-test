@@ -2,26 +2,24 @@ import cats.effect.IO
 import munit.CatsEffectSuite
 
 import com.siriusxm.example._
-import com.siriusxm.example.Product._
 
 class MainTest extends CatsEffectSuite {
-  test("can create a http client") {
-
+  test("can find the price for cheerios") {
+    val expected = 8.43
+    val obtained = Main.pollProductPrice("cheerios")
+    assertIO(obtained, expected)
   }
 
-  test("tests can return IO[Unit] with assertions expressed via a map") {
-    IO(42).map(it => assertEquals(it, 42))
-  }
-
-  test("alternatively, assertions can be written via assertIO") {
-    assertIO(IO(42), 42)
-  }
-
-  test("or via assertEquals syntax") {
-    IO(42).assertEquals(42)
-  }
-
-  test("or via plain assert syntax on IO[Boolean]") {
-    IO(true).assert
+  test("can add both cheerios and cornflakes to cart and get a total with tax") {
+    val expected = 12.32
+    val obtained = for {
+      cheerios <- Main.getProduct("cheerios")
+      flakes <- Main.getProduct("cornflakes")
+      cart = Cart(products = List())
+      cartWithCheerios = cart.addProduct(cheerios)
+      cartWithCheeriosAndFlakes = cartWithCheerios.addProduct(flakes)
+      total = cartWithCheeriosAndFlakes.total
+    } yield total
+    assertIO(obtained, expected)
   }
 }
