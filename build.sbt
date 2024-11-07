@@ -6,7 +6,7 @@ val catsEffectV = "3.5.5"
 val circeV = "0.14.10"
 val http4sV = "0.23.29"
 val log4catsV = "2.7.0"
-val logbackClassicV = "1.5.12"
+val logbackClassicV = "1.5.6"
 val munitCatsEffectV = "2.0.0"
 val betterMonadicForV = "0.3.1"
 
